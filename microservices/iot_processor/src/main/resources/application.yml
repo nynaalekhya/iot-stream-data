@@ -1,0 +1,54 @@
+## YAML Template.
+logging:
+    level:
+        com.dreamsoftware.iotframesingest: TRACE
+
+spring:
+  kafka:
+    client-id: iot-processor
+    bootstrap-servers:
+      - kafka:9092
+    template:
+      default-topic: iot-frames
+    consumer:
+      group-id: iot-processor-consumer
+      auto-offset-reset: earliest
+      key-deserializer: com.dreamsoftware.iotframesingest.serde.SensorKeySerializer
+      value-deserializer: com.dreamsoftware.iotframesingest.serde.SensorDataDeserializer
+---
+spring:
+  security:
+    user:
+      name: prometheus
+      password: prometheus
+
+---
+
+kafka:
+  topic:
+    input: iot-frames
+    aggregate-metrics-sensor: iot-aggregate-metrics-sensor
+    aggregate-metrics-place: iot-aggregate-metrics-place
+    metrics-time-series: iot-metrics-time-series
+---
+info:
+    app:
+        name: @project.name@
+        description: @project.description@
+        version: @project.version@
+        encoding: @project.build.sourceEncoding@
+        java:
+            version: @java.version@
+---
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
