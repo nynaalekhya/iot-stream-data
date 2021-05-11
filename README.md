@@ -1,4 +1,4 @@
-# IoT Event Streaming Architecture
+# IoT Streaming Architecture
 Internet of Things (IoT) and Event Streaming at Scale with Apache Kafka and MQTT.
 
 
